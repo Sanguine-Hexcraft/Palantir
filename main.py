@@ -56,7 +56,7 @@ def generate_content(client, messages, verbose):
         print("================================")
     
     print("================================")
-    print(f"Palantir Response:\n\n{response.text}")
+    print(f"\033Palantir Response:\033\n\n{response.text}")
 
 if __name__ == "__main__":
     main()
