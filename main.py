@@ -34,7 +34,7 @@ def main():
         types.Content(role="user", parts=[types.Part(text=ask_palantir)]),
     ]
 
-    generate_content(client, messages, ask_palantir)
+    generate_content(client, messages, verbose)
   
 # Get a response from Gemini API with our queries list (messages)
 def generate_content(client, messages, verbose):   
@@ -56,7 +56,7 @@ def generate_content(client, messages, verbose):
         print("================================")
     
     print("================================")
-    print(f"\033Palantir Response:\033\n\n{response.text}")
+    print(f"Palantir Response:\n\n{response.text}")
 
 if __name__ == "__main__":
     main()
