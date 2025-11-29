@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from prompts import system_prompt
+from call_function import available_functions
 
 
 def main():
@@ -45,7 +46,7 @@ def generate_content(client, messages, verbose):
     response = client.models.generate_content(
         model="gemini-2.0-flash-001", 
         contents=messages,
-        config=types.GenerateContentConfig(system_instruction=system_prompt),
+        config=types.GenerateContentConfig(tools=[available_functions], system_instruction=system_prompt),
     )
     
     prompt_tokens = response.usage_metadata.prompt_token_count
@@ -61,7 +62,14 @@ def generate_content(client, messages, verbose):
         print("================================")
     
     print("================================")
-    print(f"Palantir Response:\n\n{response.text}")
+    print(f"Palantir Response:\n")
+
+    if not response.function_calls:
+        print(response.text)
+        return response.text
+
+    for function_call_part in response.function_calls:
+        print(f"Calling Function: {function_call_part.name}({function_call_part.args})")
 
 if __name__ == "__main__":
     main()
