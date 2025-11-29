@@ -1,6 +1,6 @@
 # Palantir
 
-![Palantir](https://tenor.com/view/saruman-palantir-gif-19765279)
+![Palantir](https://c.tenor.com/wOY6QC__CGYAAAAd/tenor.gif)
 
 Palantir is a tiny command-line AI assistant that pipes your prompt to Google’s Gemini 2.0 Flash model and prints the response directly in your terminal. It is intentionally lightweight so you can peek under the hood, extend it, or plug it into other projects.
 
