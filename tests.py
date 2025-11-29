@@ -27,6 +27,14 @@ print("==================")
 # print(write_file_content("calculator", "/tmp/temp.txt", "this should not be allowed"))
 
 # Run python file tests ----------------------------------------------------------
-print(run_python_file("calculator", "../"))
-print(run_python_file("calculator", "test"))
+# print(run_python_file("calculator", "../"))
+# print(run_python_file("calculator", "test"))
+# print(run_python_file("calculator", "lorem.txt"))
+# print(run_python_file("calculator", "my_test.py"))
+print(run_python_file("calculator", "main.py"))
+print(run_python_file("calculator", "main.py", ["3 + 5"]))
+print(run_python_file("calculator", "tests.py"))
+print(run_python_file("calculator", "../main.py"))
+print(run_python_file("calculator", "nonexistent.py"))
 print(run_python_file("calculator", "lorem.txt"))
+
