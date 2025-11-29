@@ -10,7 +10,6 @@ def get_files_info(working_directory, directory="."):
     if not os.path.isdir(full_path):
         return f'Error: "{directory}" is not a directory'
 
-    
     try:
         lines = []
         
@@ -23,8 +22,6 @@ def get_files_info(working_directory, directory="."):
             is_dir =  os.path.isfile(item_path)
 
             lines.append(f"- {i}: file_size: {size} bytes, is_dir={is_dir}")
-    
-
     
         if directory == ".":
             intro_line = "Result for current directory:"
