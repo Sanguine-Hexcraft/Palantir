@@ -48,6 +48,8 @@ def generate_content(client, messages, verbose):
         config=types.GenerateContentConfig(tools=[available_functions], system_instruction=system_prompt),
     )
     
+    print(f"testing::SANG:: {response.candidates}")
+
     prompt_tokens = response.usage_metadata.prompt_token_count
     response_tokens = response.usage_metadata.candidates_token_count
 
