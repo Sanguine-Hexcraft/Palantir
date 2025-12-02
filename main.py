@@ -8,6 +8,7 @@ from call_function import call_function, available_functions
 
 
 def main():
+
     load_dotenv()
 
     verbose = "--verbose" in sys.argv
@@ -30,14 +31,23 @@ def main():
 
     if verbose:
         print(f"User prompt: {ask_palantir}\n")
-         
+        
     # Create a new list of AI queries
     messages = [
         types.Content(role="user", parts=[types.Part(text=ask_palantir)]),
     ]
+    for i in range(20):
+        try:
+            result = generate_content(client, messages, verbose)
+            if result: # final answer
+                print("Palantir Response:\n")
+                print(result)
+                break
 
-    generate_content(client, messages, verbose)
-  
+        except Exception as e:
+            print(f"Error in generate_content: {e}")
+            break
+
 # Get a response from Gemini API with our queries list (messages)
 def generate_content(client, messages, verbose):
 
@@ -48,11 +58,13 @@ def generate_content(client, messages, verbose):
         config=types.GenerateContentConfig(tools=[available_functions], system_instruction=system_prompt),
     )
     
-    print(f"testing::SANG:: {response.candidates}")
-
+    for candidate in response.candidates:
+        messages.append(candidate.content)
+    
     prompt_tokens = response.usage_metadata.prompt_token_count
     response_tokens = response.usage_metadata.candidates_token_count
 
+    
     # --------- PRINT RESPONSE GOES HERE -----------
     #
     if verbose:
@@ -62,11 +74,8 @@ def generate_content(client, messages, verbose):
         print(f"Response tokens: {response_tokens}")
         print("================================")
     
-    print("================================")
-    print(f"Palantir Response:\n")
 
-    if not response.function_calls:
-        print(response.text)
+    if not response.function_calls and response.text:
         return response.text
 
     function_responses = []
@@ -84,6 +93,13 @@ def generate_content(client, messages, verbose):
 
     if not function_responses:
         raise Exception("no function response generated, exiting")
+
+    tool_message = types.Content(
+        role="user",
+        parts=function_responses,
+    )
+    messages.append(tool_message)
+
 
 if __name__ == "__main__":
     main()
