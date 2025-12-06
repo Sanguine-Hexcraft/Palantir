@@ -26,7 +26,8 @@ python -m venv .venv
 source .venv/bin/activate
 
 # install pyproject dependencies
-pip install -e .
+pip install -e . 
+uv install? ??????
 
 # set your Gemini key (or add it to a .env file)
 export GEMINI_API_KEY="sk-your-key"
